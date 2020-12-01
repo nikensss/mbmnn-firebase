@@ -4,6 +4,7 @@ import { Project } from '../../classes/project';
 import { IProject } from '../../interfaces/iproject';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +16,33 @@ export class ProjectService {
   private readonly postNewProjectUrl: string = this.projectsUrl + 'new';
   private readonly deleteUrl: string = this.projectsUrl + 'delete/';
 
-  constructor(private http: HttpClient, private afAuth: AngularFireAuth) {}
+  constructor(
+    private http: HttpClient,
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore
+  ) {}
 
   public async getProjects(): Promise<Project[]> {
-    return this.http
-      .get(this.allProjects)
+    return this.db
+      .collection<IProject>('projects')
+      .get()
       .toPromise()
-      .then((data: IProject[]) => data.map((d) => new Project(d)));
+      .then((result) => {
+        return result.docs.map((doc) => new Project(doc));
+      });
   }
 
   public async getProject(id: string): Promise<Project> {
-    return this.http
-      .get(this.projectsUrl + id)
+    return this.db
+      .collection<IProject>('projects')
+      .doc(id)
+      .get()
       .toPromise()
-      .then((data: IProject) => new Project(data));
+      .then((result) => new Project(result));
+    // return this.http
+    //   .get(this.projectsUrl + id)
+    //   .toPromise()
+    //   .then((data: IProject) => new Project(data));
   }
 
   async postNewProject(form: FormData) {

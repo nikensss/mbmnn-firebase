@@ -1,34 +1,25 @@
+import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { IProject } from '../interfaces/iproject';
 
 export class Project implements IProject {
-  public _id: string;
+  public uid: string;
   public title: string;
   public description: string;
   public texts: string[];
-  public images: any;
-  public mainImage: any;
+  public images: string[];
+  public mainImage: string;
 
-  constructor({ _id, title, description, texts, mainImage, images }) {
-    this._id = _id;
+  constructor(doc: QueryDocumentSnapshot<IProject>) {
+    const { title, description, texts, mainImage, images } = doc.data();
+    this.uid = doc.id;
     this.title = title;
     this.description = description;
     this.texts = texts;
-    this.mainImage = this.bufferToImage(mainImage.data.data);
-    this.images = images.map(i => this.bufferToImage(i.data.data));
-  }
-
-  private bufferToImage(d: any): string {
-    return (
-      'data:image/jpg;base64,' +
-      btoa(
-        new Uint8Array(d).reduce(function (data, byte) {
-          return data + String.fromCharCode(byte);
-        }, '')
-      )
-    );
+    this.mainImage = mainImage;
+    this.images = images;
   }
 
   public get id(): string {
-    return this._id;
+    return this.uid;
   }
 }

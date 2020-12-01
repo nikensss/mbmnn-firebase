@@ -16,7 +16,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.projectService
       .getProjects()
-      .then((d: Project[]) => (this.projects = d))
+      .then((d: Project[]) => {
+        this.projects = d;
+        console.log(this.projects[0]);
+      })
       .catch((err) => (this.error = err.error));
   }
 }

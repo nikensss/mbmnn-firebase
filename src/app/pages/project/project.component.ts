@@ -43,7 +43,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   delete(): void {
-    this.projectService.delete(this.project._id).subscribe((res) => {
+    this.projectService.delete(this.project.uid).subscribe((res) => {
       console.log(res);
       this.router.navigate(['/']);
     });
