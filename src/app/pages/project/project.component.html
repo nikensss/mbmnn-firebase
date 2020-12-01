@@ -1,0 +1,37 @@
+<div class="nav-spacer footer-spacer" id="top">
+  <ng-container *ngIf="error">
+    <div class="d-flex justify-content-center align-items-center h-100 w-100">
+      <p>{{ error }}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.project">
+    <h1 class="text-center py-3">
+      {{ project.title }}
+    </h1>
+    <div class="w-100 text-center py-2">
+      <img class="w-75" [src]="project.mainImage" alt="{{ project.title }}" />
+    </div>
+    <div class="d-flex">
+      <div
+        class="w-50 d-flex flex-wrap text-right pl-5 justify-content-between"
+      >
+        <ng-container *ngFor="let img of project.images">
+          <img class="w-100 px-5" src="{{ img }}" alt="{{ project.title }}" />
+        </ng-container>
+      </div>
+      <div class="w-50 d-flex flex-column pr-5">
+        <ng-container *ngFor="let text of project.texts">
+          <p>{{ text }}</p>
+        </ng-container>
+      </div>
+    </div>
+    <ng-container *ngIf="!(afAuth.authState | async)">
+      <div class="d-flex justify-content-end align-items-center mt-2 p-3">
+        <button class="btn btn-danger p-2 rounded" (click)="delete()">
+          DELETE
+          <span class="border border-warning rounded ml-2 px-1">&times;</span>
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

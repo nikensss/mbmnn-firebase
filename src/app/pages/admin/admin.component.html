@@ -1,0 +1,9 @@
+<div class="nav-spacer footer-spacer">
+  <h1 *ngIf="afAuth.authState | async as user">
+    Logged in as <strong>{{ user.email }}</strong>
+  </h1>
+  <div class="d-flex h-100 justify-content-around align-items-center">
+    <button mat-raised-button (click)="logout()">Logout</button>
+    <button mat-raised-button routerLink="/new">New project!</button>
+  </div>
+</div>

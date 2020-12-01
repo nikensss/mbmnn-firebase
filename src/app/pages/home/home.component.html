@@ -1,0 +1,51 @@
+<div class="nav-spacer footer-spacer" id="top">
+  <div *ngIf="error" class="d-flex justify-content-center align-items-center h-100 w-100">
+    <p>{{error}}</p>
+  </div>
+  <div *ngIf="projects.length === 0" class="position-absolute w-100">
+    <app-loading></app-loading>
+  </div>
+  <!-- Carousel start -->
+  <div id="projects-carousel" class="carousel slide vh-100" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <ng-container *ngFor="let project of projects; index as i; first as isFirst">
+        <li class="bg-secondary" data-target="#projects-carousel" [attr.data-slide-to]="i"
+          [ngClass]="{'active': isFirst}"></li>
+      </ng-container>
+    </ol>
+    <div class="carousel-inner h-100 pb-25vh">
+      <ng-container *ngFor="let project of projects; first as isFirst">
+        <div class="carousel-item text-center h-100" [ngClass]="{'active' : isFirst}">
+          <img class="d-block w-100" src="{{project.mainImage}}" alt="{{project.title}}">
+          <div class="carousel-caption d-none d-md-block text-black position-absolute bottom-0">
+            <h3>{{project.title}}</h3>
+            <h5>{{project.description}}</h5>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <a class="carousel-control-prev" href="#projects-carousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#projects-carousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <!-- Carousel end -->
+  <!-- Projects grid start -->
+  <div class="projects-grid w-100 vh-100 d-flex flex-wrap" id="projects-grid">
+    <ng-container *ngFor="let project of projects">
+      <div class="w-33 p-5 d-flex justify-content-center align-items-center">
+        <a routerLink="/projects/{{project.id}}" class="position-relative invisible-link text-black">
+          <img class="w-100 rounded" src="{{project.mainImage}}" alt="">
+          <div class="overlay-text d-flex justify-content-center align-items-center">
+            <p>{{project.title}}</p>
+          </div>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+  <!-- Projects grid end -->
+</div>

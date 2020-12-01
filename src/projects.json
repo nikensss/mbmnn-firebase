@@ -1,0 +1,11 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Hidden city",
+      "description": "The description of hidden city",
+      "images": "assets/hiddenCity.jpg",
+      "main": "assets/hiddenCity.jpg"
+    }
+  ]
+}

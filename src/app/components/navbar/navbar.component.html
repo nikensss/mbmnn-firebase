@@ -1,0 +1,18 @@
+<nav class="navbar nav vh-100">
+  <ul class="nav-items d-flex flex-column list-unstyled h-100">
+    <li class="nav-item">
+      <div [routerLink]="['']" fragment="top">
+        <a class='invisible-link' href="#top">Home</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <div [routerLink]="['']" fragment="projects-grid">
+        <a class='invisible-link' href="#projects-grid">Projects</a>
+      </div>
+    </li>
+    <li class="nav-item">About</li>
+    <li class="nav-item mt-auto mbmnn">
+      <a class='invisible-link' routerLink="/login">MBMNN-DSGN</a>
+    </li>
+  </ul>
+</nav>

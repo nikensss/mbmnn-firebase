@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mbmnn-851d2": {
+      "hosting": {
+        "milabaumann": [
+          "mbmnn-851d2"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+nav {
+  position: fixed;
+  left: 0;
+  box-sizing: border-box;
+  width: var(--nav-width);
+  z-index: 99;
+  background-color: #e6e6e6;
+  background-image: url('../../../assets/menuBackground.png');
+  background-position: center;
+  background-size: cover;
+  border-right: 1px solid lightgrey;
+}
+
+.nav-items {
+  padding-top: 3rem;
+  font-size: 1.3rem;
+}
+
+.nav-item:not(:last-child) {
+  padding-bottom: 7rem;
+}
+
+.nav-item:first-child::before {
+  content: 'from';
+  display: block;
+  font-size: 0.9rem;
+  color: darkgray;
+}
+
+.nav-item:not(:first-child):not(:last-child)::before {
+  content: 'to';
+  display: block;
+  font-size: 0.9rem;
+  padding-top: 2rem;
+  color: darkgray;
+}
+
+.nav-item:last-child::before {
+  content: 'by';
+  display: block;
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+  color: darkgray;
+}
+
+.invisible-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: rgb(175, 148, 5);
+  }
+}
