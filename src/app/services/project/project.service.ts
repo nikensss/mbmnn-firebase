@@ -104,6 +104,5 @@ export class ProjectService {
       await this.storage.refFromURL(image).delete().toPromise();
     }
     await this.db.collection('projects').doc(project.id).delete();
-    // return this.http.get(this.deleteUrl + id);
   }
 }

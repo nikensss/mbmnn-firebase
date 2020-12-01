@@ -14,5 +14,6 @@ export class AdminComponent implements OnInit {
 
   public logout(): void {
     this.afAuth.signOut();
+    this.router.navigate(['']);
   }
 }
