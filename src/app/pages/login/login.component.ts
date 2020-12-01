@@ -32,8 +32,9 @@ export class LoginComponent {
 
     try {
       await this.afAuth.signInWithEmailAndPassword(email, password);
-      const authState = await this.afAuth.authState;
-      console.log(`Auth state is: ${authState}`);
+      this.afAuth.authState.toPromise().then((state) => {
+        console.log('Auth state is:', { state });
+      });
       this.router.navigate(['/admin']);
     } catch (ex) {
       console.log(ex);

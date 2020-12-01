@@ -25,7 +25,7 @@
         </ng-container>
       </div>
     </div>
-    <ng-container *ngIf="!(afAuth.authState | async)">
+    <ng-container *ngIf="afAuth.authState | async">
       <div class="d-flex justify-content-end align-items-center mt-2 p-3">
         <button class="btn btn-danger p-2 rounded" (click)="delete()">
           DELETE

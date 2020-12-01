@@ -3,6 +3,7 @@ import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { Location } from '@angular/common';
+import NewProject from 'src/app/interfaces/NewProject.interface';
 
 @Component({
   selector: 'app-new-project',
@@ -117,25 +118,17 @@ export class NewProjectComponent implements OnInit {
     this.disabled = true;
     this.submitText = 'Submitting';
 
-    const formData = new FormData();
-    formData.append('title', this.projectForm.get('title').value);
-    formData.append('description', this.projectForm.get('description').value);
-    formData.append('mainImage', this.mainImage, this.mainImage.name);
+    const newProject: NewProject = {
+      title: this.projectForm.get('title').value,
+      description: this.projectForm.get('description').value,
+      mainImage: this.mainImage,
+      texts: this.projectForm
+        .get('texts')
+        .value.map((e: { text: string }) => e.text),
+      images: this.sideImages
+    };
 
-    for (let text of this.projectForm.get('texts').value) {
-      formData.append('texts', text.text);
-    }
-
-    for (let image of this.sideImages) {
-      formData.append('images', image, image.name);
-    }
-
-    (await this.projectService.postNewProject(formData)).subscribe(
-      (res: any) => {
-        console.log(res);
-        this.submitText = 'Done!';
-        if (res.body.id) this.router.navigate([`/projects/${res.body.id}`]);
-      }
-    );
+    const docRef = await this.projectService.postNewProject(newProject);
+    this.router.navigate([`/projects/${docRef}`]);
   }
 }

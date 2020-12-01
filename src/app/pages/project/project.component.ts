@@ -43,9 +43,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   delete(): void {
-    this.projectService.delete(this.project.uid).subscribe((res) => {
-      console.log(res);
-      this.router.navigate(['/']);
+    this.projectService.delete(this.project).then(() => {
+      console.log('project deleted!');
+      this.router.navigate(['']);
     });
   }
 }

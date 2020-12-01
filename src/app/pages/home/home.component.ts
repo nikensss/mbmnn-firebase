@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
       .getProjects()
       .then((d: Project[]) => {
         this.projects = d;
-        console.log(this.projects[0]);
       })
       .catch((err) => (this.error = err.error));
   }
