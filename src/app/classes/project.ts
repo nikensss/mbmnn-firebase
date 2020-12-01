@@ -1,5 +1,5 @@
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { IProject } from '../interfaces/iproject';
+import IProject from '../interfaces/IProject.interface';
 
 export class Project implements IProject {
   public uid: string;

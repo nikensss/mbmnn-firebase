@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../../classes/project';
-import { IProject } from '../../interfaces/iproject';
+import IProject from '../../interfaces/IProject.interface';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
