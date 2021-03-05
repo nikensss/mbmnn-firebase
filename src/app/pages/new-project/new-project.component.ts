@@ -83,7 +83,7 @@ export class NewProjectComponent implements OnInit {
     });
   }
 
-  public deleteImage(index: number): void {
+  public deleteSideImage(index: number): void {
     this.delete('images', index);
     this.sideImages.splice(index, 1);
   }
@@ -106,12 +106,12 @@ export class NewProjectComponent implements OnInit {
     (this._projectForm.controls[controlName] as FormArray).removeAt(index);
   }
 
-  public onFileSelected(event: any) {
-    if (event.target.dataset.formcontrolname === 'mainImage') {
-      this.mainImage = event.target.files[0];
-    } else {
-      this.sideImages.push(event.target.files[0]);
-    }
+  public setMainImage(files: File[]) {
+    this.mainImage = files[0];
+  }
+
+  public addSideImage(files: File[]) {
+    this.sideImages.push(files[0]);
   }
 
   async submit(): Promise<void> {
@@ -128,7 +128,13 @@ export class NewProjectComponent implements OnInit {
       images: this.sideImages
     };
 
-    const docRef = await this.projectService.postNewProject(newProject);
-    this.router.navigate([`/projects/${docRef}`]);
+    try {
+      const docRef = await this.projectService.postNewProject(newProject);
+      this.router.navigate([`/projects/${docRef}`]);
+    } catch (ex) {
+      console.error(`Exception caught: ${ex}`, { ex });
+    } finally {
+      this.disabled = false;
+    }
   }
 }

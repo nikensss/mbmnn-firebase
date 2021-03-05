@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../../classes/project';
-import IProject from '../../interfaces/IProject.interface';
+import BaseProject from '../../interfaces/BaseProject.interface';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -28,7 +28,7 @@ export class ProjectService {
 
   public async getProjects(): Promise<Project[]> {
     return this.db
-      .collection<IProject>('projects')
+      .collection<BaseProject>('projects')
       .get()
       .toPromise()
       .then((result) => {
@@ -38,7 +38,7 @@ export class ProjectService {
 
   public async getProject(id: string): Promise<Project> {
     return this.db
-      .collection<IProject>('projects')
+      .collection<BaseProject>('projects')
       .doc(id)
       .get()
       .toPromise()
@@ -70,32 +70,25 @@ export class ProjectService {
   async uploadFilesToStorage(mainImage: File, images: File[]) {
     const downloadUrls = {
       mainImage: '',
-      images: []
+      images: [] as string[]
     };
 
-    await this.uploadFileToStorage(mainImage)
-      .then(async (observable) => {
-        const mainImage = await observable.toPromise();
-        downloadUrls.mainImage = mainImage;
-        return Promise.all(
-          images.map((image) => this.uploadFileToStorage(image))
-        );
-      })
-      .then(async (observables) => {
-        const imagesUrls = await Promise.all(
-          observables.map((obs) => obs.toPromise())
-        );
-        downloadUrls.images = imagesUrls;
-      });
+    downloadUrls.mainImage = await this.uploadFileToStorage(mainImage);
+    downloadUrls.images = (await Promise.all(
+      images.map(this.uploadFileToStorage.bind(this))
+    )) as string[];
+
     console.log({ downloadUrls });
     return downloadUrls;
   }
 
-  async uploadFileToStorage(file: File) {
+  async uploadFileToStorage(file: File): Promise<string> {
     const { name } = file;
+    console.log({ name });
+
     const ref = this.storage.ref(name);
     await ref.put(file);
-    return ref.getDownloadURL();
+    return ref.getDownloadURL().toPromise();
   }
 
   public async delete(project: Project) {

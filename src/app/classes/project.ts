@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
-import IProject from '../interfaces/IProject.interface';
+import BaseProject from '../interfaces/BaseProject.interface';
 
-export class Project implements IProject {
+export class Project implements BaseProject {
   public uid: string;
   public title: string;
   public description: string;
@@ -9,7 +9,7 @@ export class Project implements IProject {
   public images: string[];
   public mainImage: string;
 
-  constructor(doc: QueryDocumentSnapshot<IProject>) {
+  constructor(doc: QueryDocumentSnapshot<BaseProject>) {
     const { title, description, texts, mainImage, images } = doc.data();
     this.uid = doc.id;
     this.title = title;

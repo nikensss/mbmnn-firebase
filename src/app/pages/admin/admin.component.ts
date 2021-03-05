@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -7,10 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
   constructor(private router: Router, public afAuth: AngularFireAuth) {}
-
-  ngOnInit() {}
 
   public logout(): void {
     this.afAuth.signOut();

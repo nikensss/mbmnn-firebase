@@ -1,27 +1,47 @@
 <div class="nav-spacer footer-spacer" id="top">
   <h1 class="bg-primary mb-3 py-4 text-center">New project</h1>
-  <form [formGroup]="projectForm" novalidate="novalidate" class="px-5 container">
+  <form
+    [formGroup]="projectForm"
+    novalidate="novalidate"
+    class="px-5 container"
+  >
     <!-- Project title -->
     <div class="row form-group">
       <label class="mb-0 w-25 text-right">
         <h4 class="mb-0 pr-2">Title:</h4>
       </label>
-      <input type="text" class="form-control w-75" placeholder="Project title" formControlName="title" />
+      <input
+        type="text"
+        class="form-control w-75"
+        placeholder="Project title"
+        formControlName="title"
+      />
     </div>
     <!-- Project description -->
     <div class="row form-group">
       <label class="mb-0 w-25 text-right">
         <h4 class="mb-0 pr-2">Description:</h4>
       </label>
-      <input type="text" class="form-control w-75" placeholder="Project description" formControlName="description" />
+      <input
+        type="text"
+        class="form-control w-75"
+        placeholder="Project description"
+        formControlName="description"
+      />
     </div>
     <!-- Main image -->
     <div class="row form-group">
       <label class="mb-0 w-25 text-right">
         <h4 class="mb-0 pr-2">Main image:</h4>
       </label>
-      <input type="file" class="form-control-file w-75" accept="image/*" data-formcontrolname="mainImage"
-        formControlName="mainImage" (change)="onFileSelected($event)">
+      <input
+        type="file"
+        class="form-control-file w-75"
+        accept="image/*"
+        data-formcontrolname="mainImage"
+        formControlName="mainImage"
+        (change)="setMainImage($event.target.files)"
+      />
     </div>
     <!-- Texts and images -->
     <div class="row form-group">
@@ -32,21 +52,30 @@
           <div [formGroupName]="i" class="row form-group">
             <div class="col-2 d-flex justify-content-end align-items-center">
               <label class="mb-0">
-                <h4 class="mb-0">{{i+1}}:</h4>
+                <h4 class="mb-0">{{ i + 1 }}:</h4>
               </label>
             </div>
             <div class="col-9 d-flex justify-content-center align-items-center">
-              <input type="text" class="form-control w-100" placeholder="Lorem ipsum..." formControlName="text">
+              <input
+                type="text"
+                class="form-control w-100"
+                placeholder="Lorem ipsum..."
+                formControlName="text"
+              />
             </div>
             <div class="col-1 d-flex align-items-center">
-              <button class="btn btn-danger" (click)="deleteText(i)">&times;</button>
+              <button class="btn btn-danger" (click)="deleteText(i)">
+                &times;
+              </button>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-2"></div>
           <div class="col-9">
-            <button class="btn btn-success w-100" (click)="addText()">add</button>
+            <button class="btn btn-success w-100" (click)="addText()">
+              add
+            </button>
           </div>
           <div class="col-1"></div>
         </div>
@@ -58,29 +87,41 @@
           <div [formGroupName]="i" class="row form-group">
             <div class="col-2 d-flex justify-content-end align-items-center">
               <label class="mb-0">
-                <h4 class="mb-0">{{i+1}}:</h4>
+                <h4 class="mb-0">{{ i + 1 }}:</h4>
               </label>
             </div>
             <div class="col-9 d-flex justify-content-center align-items-center">
-              <input type="file" class="form-control-file" accept="image/*" data-formcontrolname="image"
-                formControlName="image" (change)="onFileSelected($event)">
+              <input
+                type="file"
+                class="form-control-file"
+                accept="image/*"
+                data-formcontrolname="image"
+                formControlName="image"
+                (change)="addSideImage($event.target.files)"
+              />
             </div>
             <div class="col-1 d-flex align-items-center">
-              <button class="btn btn-danger" (click)="deleteImage(i)">&times;</button>
+              <button class="btn btn-danger" (click)="deleteSideImage(i)">
+                &times;
+              </button>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-2"></div>
           <div class="col-9">
-            <button class="btn btn-success w-100" (click)="addImage()">add</button>
+            <button class="btn btn-success w-100" (click)="addImage()">
+              add
+            </button>
           </div>
           <div class="col-1"></div>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center mt-3">
-      <button [disabled]="disabled" class="btn btn-primary" (click)="submit()">{{submitText}}</button>
+      <button [disabled]="disabled" class="btn btn-primary" (click)="submit()">
+        {{ submitText }}
+      </button>
     </div>
   </form>
 </div>
